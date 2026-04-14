@@ -1,0 +1,170 @@
+hydra:
+  run:
+    dir: /mnt/raid/xujianjun/beifen/xjj_4090_20/beifen_20/LLM_train/ote
+  sweep:
+    dir: multirun/${model.name}/${experiment_name}
+    subdir: ${hydra.job.override_dirname}
+  launcher:
+    _target_: hydra._internal.core_plugins.basic_launcher.BasicLauncher
+  sweeper:
+    _target_: hydra._internal.core_plugins.basic_sweeper.BasicSweeper
+    max_batch_size: null
+    params: null
+  help:
+    app_name: ${hydra.job.name}
+    header: '${hydra.help.app_name} is powered by Hydra.
+
+      '
+    footer: 'Powered by Hydra (https://hydra.cc)
+
+      Use --hydra-help to view Hydra specific help
+
+      '
+    template: '${hydra.help.header}
+
+      == Configuration groups ==
+
+      Compose your configuration from those groups (group=option)
+
+
+      $APP_CONFIG_GROUPS
+
+
+      == Config ==
+
+      Override anything in the config (foo.bar=value)
+
+
+      $CONFIG
+
+
+      ${hydra.help.footer}
+
+      '
+  hydra_help:
+    template: 'Hydra (${hydra.runtime.version})
+
+      See https://hydra.cc for more info.
+
+
+      == Flags ==
+
+      $FLAGS_HELP
+
+
+      == Configuration groups ==
+
+      Compose your configuration from those groups (For example, append hydra/job_logging=disabled
+      to command line)
+
+
+      $HYDRA_CONFIG_GROUPS
+
+
+      Use ''--cfg hydra'' to Show the Hydra config.
+
+      '
+    hydra_help: ???
+  hydra_logging:
+    version: 1
+    formatters:
+      simple:
+        format: '[%(asctime)s][HYDRA] %(message)s'
+    handlers:
+      console:
+        class: logging.StreamHandler
+        formatter: simple
+        stream: ext://sys.stdout
+    root:
+      level: INFO
+      handlers:
+      - console
+    loggers:
+      logging_example:
+        level: DEBUG
+    disable_existing_loggers: false
+  job_logging:
+    version: 1
+    formatters:
+      simple:
+        format: '[%(asctime)s][%(name)s][%(levelname)s] - %(message)s'
+    handlers:
+      console:
+        class: logging.StreamHandler
+        formatter: simple
+        stream: ext://sys.stdout
+      file:
+        class: logging.FileHandler
+        formatter: simple
+        filename: ${hydra.runtime.output_dir}/${hydra.job.name}.log
+    root:
+      level: INFO
+      handlers:
+      - console
+      - file
+    disable_existing_loggers: false
+  env: {}
+  mode: RUN
+  searchpath: []
+  callbacks: {}
+  output_subdir: config
+  overrides:
+    hydra:
+    - hydra.run.dir="/mnt/raid/xujianjun/beifen/xjj_4090_20/beifen_20/LLM_train/ote"
+    - hydra.job.name=train_ddp_process_2
+    - hydra.mode=RUN
+    task:
+    - dataset=synth
+    - trainer.max_epochs=20
+    - experiment_name=train_ote_pca_ep_20_bs_512_synth_tps_false_device_4_is_ar_false_class_token_true_oriented_false_dec_depth_t_3
+    - model.batch_size=512
+    - model.is_tps=false
+    - trainer.devices=4
+    - model.lr=5e-4
+    - model.is_ar=false
+    - model.class_token=true
+    - data.oriented=false
+    - model.dec_depth=3
+  job:
+    name: train_ddp_process_2
+    chdir: null
+    override_dirname: data.oriented=false,dataset=synth,experiment_name=train_ote_pca_ep_20_bs_512_synth_tps_false_device_4_is_ar_false_class_token_true_oriented_false_dec_depth_t_3,model.batch_size=512,model.class_token=true,model.dec_depth=3,model.is_ar=false,model.is_tps=false,model.lr=5e-4,trainer.devices=4,trainer.max_epochs=20
+    id: ???
+    num: ???
+    config_name: train_ote_pca
+    env_set: {}
+    env_copy: []
+    config:
+      override_dirname:
+        kv_sep: '='
+        item_sep: ','
+        exclude_keys: []
+  runtime:
+    version: 1.3.2
+    version_base: '1.2'
+    cwd: /mnt/raid/xujianjun/beifen/xjj_4090_20/beifen_20/LLM_train/ote
+    config_sources:
+    - path: hydra.conf
+      schema: pkg
+      provider: hydra
+    - path: /mnt/raid/xujianjun/beifen/xjj_4090_20/beifen_20/LLM_train/ote/configs
+      schema: file
+      provider: main
+    - path: ''
+      schema: structured
+      provider: schema
+    output_dir: /mnt/raid/xujianjun/beifen/xjj_4090_20/beifen_20/LLM_train/ote
+    choices:
+      dataset: synth
+      charset: 36_lowercase
+      model: ote_pca
+      hydra/env: default
+      hydra/callbacks: null
+      hydra/job_logging: default
+      hydra/hydra_logging: default
+      hydra/hydra_help: default
+      hydra/help: default
+      hydra/sweeper: basic
+      hydra/launcher: basic
+      hydra/output: default
+  verbose: false

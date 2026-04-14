@@ -1,0 +1,14 @@
+name: glmseq
+_target_: strhub.models.glm.system.GLMSeq
+
+
+# Data
+img_size: [ 32, 128 ]  # [ height, width ]
+patch_size: [ 4, 8 ]  # [ height, width ]
+
+# Architecture
+embed_dim: 384
+num_heads: 6
+depth: 12
+enc_mlp_ratio: 4
+dropout: 0.1

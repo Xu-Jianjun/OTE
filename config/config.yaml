@@ -1,0 +1,53 @@
+model:
+  _convert_: all
+  img_size:
+  - 32
+  - 128
+  max_label_length: 25
+  charset_train: 0123456789abcdefghijklmnopqrstuvwxyz
+  charset_test: 0123456789abcdefghijklmnopqrstuvwxyz
+  batch_size: 512
+  weight_decay: 0.0
+  warmup_pct: 0.075
+  lr: 0.0005
+  is_tps: false
+  is_ar: false
+  clip_name: ViT-B/32
+  pretrain_dir: /home/xujianjun/raid/beifen/xjj_4090_20/beifen_20/LLM_train/ote/clip_pretrain/
+  class_token: true
+  dec_depth: 3
+  name: otepca
+  _target_: strhub.models.ote_pca.system.OTE_CLIP_Seq_PCA
+  patch_size:
+  - 4
+  - 8
+  embed_dim: 384
+  enc_num_heads: 6
+  enc_depth: 12
+  enc_mlp_ratio: 4
+  dropout: 0.1
+data:
+  _target_: strhub.data.module.SceneTextDataModule
+  root_dir: /home/xujianjun/raid/beifen/xjj_4090_20/beifen_20/datasets/ote/
+  train_dir: synth
+  batch_size: ${model.batch_size}
+  img_size: ${model.img_size}
+  charset_train: ${model.charset_train}
+  charset_test: ${model.charset_test}
+  max_label_length: ${model.max_label_length}
+  remove_whitespace: true
+  normalize_unicode: true
+  augment: true
+  oriented: false
+  num_workers: 3
+trainer:
+  _target_: pytorch_lightning.Trainer
+  _convert_: all
+  val_check_interval: 1000
+  max_epochs: 20
+  gradient_clip_val: 20
+  accelerator: gpu
+  devices: 4
+ckpt_path: null
+pretrained: null
+experiment_name: train_ote_pca_ep_20_bs_512_synth_tps_false_device_4_is_ar_false_class_token_true_oriented_false_dec_depth_t_3

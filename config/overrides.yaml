@@ -1,0 +1,11 @@
+- dataset=synth
+- trainer.max_epochs=20
+- experiment_name=train_ote_pca_ep_20_bs_512_synth_tps_false_device_4_is_ar_false_class_token_true_oriented_false_dec_depth_t_3
+- model.batch_size=512
+- model.is_tps=false
+- trainer.devices=4
+- model.lr=5e-4
+- model.is_ar=false
+- model.class_token=true
+- data.oriented=false
+- model.dec_depth=3

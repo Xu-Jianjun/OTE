@@ -1,0 +1,18 @@
+name: otesvtr
+_target_: strhub.models.ote_svtr2.system.OTE_CLIP_SVTR_PCA
+
+
+# Data
+img_size: [ 32, 128 ]  # [ height, width ]
+patch_size: [ 4, 8 ]  # [ height, width ]
+
+# Architecture
+embed_dim: [128, 256, 384]
+depth: [3, 6, 9]
+num_heads: [4,8,12]
+local_mixer: [[7, 11], [7, 11], [7, 11]]
+patch_merging: 'Conv'
+enc_depth: 12
+mlp_ratio: 4
+dropout: 0.1
+class_token: false

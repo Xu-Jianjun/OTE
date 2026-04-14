@@ -1,0 +1,14 @@
+name: oteclipar
+_target_: strhub.models.ote_clip_ar.system.OTE_CLIP_Seq_AR
+
+
+# Data
+img_size: [ 32, 128 ]  # [ height, width ]
+patch_size: [ 4, 8 ]  # [ height, width ]
+
+# Architecture
+embed_dim: 384
+enc_num_heads: 6
+enc_depth: 12
+enc_mlp_ratio: 4
+dropout: 0.1

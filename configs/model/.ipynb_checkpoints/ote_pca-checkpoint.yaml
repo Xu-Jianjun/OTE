@@ -1,0 +1,14 @@
+name: otepca
+_target_: strhub.models.ote_pca.system.OTE_CLIP_Seq_PCA
+
+
+# Data
+img_size: [ 32, 128 ]  # [ height, width ]
+patch_size: [ 4, 8 ]  # [ height, width ]
+
+# Architecture
+embed_dim: 384
+enc_num_heads: 6
+enc_depth: 12
+enc_mlp_ratio: 4
+dropout: 0.1
